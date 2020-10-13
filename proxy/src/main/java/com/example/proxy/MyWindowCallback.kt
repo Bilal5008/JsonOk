@@ -31,11 +31,14 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import org.json.simple.JSONObject
+import org.openqa.selenium.WebDriver
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 
 class MyWindowCallback() : Window.Callback {
@@ -59,8 +62,7 @@ class MyWindowCallback() : Window.Callback {
     var viewText: String? = null
     var app: App? = null
     var d: Device? = null
-    var selectedComponent = null
-
+    var xPath : String?  =null
 
     companion object {
         const val FOO = "MyWindowCallback"
@@ -69,6 +71,8 @@ class MyWindowCallback() : Window.Callback {
     constructor(localCallback: Window.Callback, activity: Activity) : this() {
         this.activity = activity
         this.localCallback = localCallback
+
+//        var driver: WebDriver = AndroidDriver(URL("http://127.0.0.1:4723/wd/hub"), capabilities)
         mouseEventList = arrayListOf()
         var viewGroupSize =
             ((this.activity?.window?.decorView?.findViewById<View>(R.id.content) as? ViewGroup)?.getChildAt(
@@ -80,14 +84,11 @@ class MyWindowCallback() : Window.Callback {
 
             for (i in 0 until viewGroupSize!!) {
                 finalView =
-                    ((this.activity?.window?.decorView?.findViewById<View>(R.id.content) as? ViewGroup)?.getChildAt(
-                        0
-                    ) as? ViewGroup)?.get(i)
+                    ((this.activity?.window?.decorView?.findViewById<View>(R.id.content) as? ViewGroup)?.getChildAt(0) as? ViewGroup)?.get(i)
                 if (finalView is Button) {
-                    addOnTouchListener(finalView as Button, i)
-
+                    addOnTouchListener(finalView as Button, i,activity)
                 } else if (finalView is EditText) {
-                    addSetTextListener(finalView as EditText, i)
+                    addSetTextListener(finalView as EditText, i, activity)
                 }
                 Log.i(FOO, "UID $i")
 
@@ -97,7 +98,7 @@ class MyWindowCallback() : Window.Callback {
         }
     }
 
-    private fun addSetTextListener(finalView: EditText, i: Int) {
+    private fun addSetTextListener(finalView: EditText, i: Int, activity: Activity) {
 
 
         finalView.imeOptions = EditorInfo.IME_ACTION_DONE
@@ -118,7 +119,7 @@ class MyWindowCallback() : Window.Callback {
 
     }
 
-    private fun addOnTouchListener(finalView: Button, i: Int) {
+    private fun addOnTouchListener(finalView: Button, i: Int, activity: Activity) {
         finalView?.setOnTouchListener { view, motionEvent ->
             Log.i(FOO, "FirstAddedTOuchListener $view")
 
@@ -226,8 +227,10 @@ class MyWindowCallback() : Window.Callback {
                         scrollable = true
                     }
                     isClickable = view.isClickable
-                    viewText = (view as AppCompatButton).text as String?
 
+                    view.findViewById<Button>(view.id)
+                    viewText = (view as AppCompatButton).text as String?
+                    xPath = "//hierarchy[1]/"
 
                 }
             }
@@ -373,7 +376,9 @@ class MyWindowCallback() : Window.Callback {
                         longClickable = longClickable,
                         scrollable = scrollable,
                         visible = visible,
-                        resourceId = ""
+                        resourceId = "",
+                        xpath = xPath,
+                        text = viewText
 
                     )
 
@@ -383,7 +388,7 @@ class MyWindowCallback() : Window.Callback {
                         "",
                         d!!.manufacturer,
                         getScreenResolution(this.activity),
-                        formatSize( getRamForDevice(this.activity)),
+                        formatSize(getRamForDevice(this.activity)),
                         "DEFAULT",
                         d!!.manufacturer,
                         d!!.model,
@@ -470,7 +475,7 @@ class MyWindowCallback() : Window.Callback {
             "",
             d.manufacturer,
             getScreenResolution(this.activity),
-            formatSize( getRamForDevice(this.activity)),
+            formatSize(getRamForDevice(this.activity)),
             "DEFAULT",
             d.manufacturer,
             d.model,
@@ -649,7 +654,7 @@ class MyWindowCallback() : Window.Callback {
             "",
             d!!.manufacturer,
             getScreenResolution(this.activity),
-            formatSize( getRamForDevice(this.activity)),
+            formatSize(getRamForDevice(this.activity)),
             "DEFAULT",
             d!!.manufacturer,
             d!!.model,
@@ -812,7 +817,7 @@ class MyWindowCallback() : Window.Callback {
                     stringValue,
                     stringValue,
                     stringValue,
-                  null,
+                    null,
                     "",
                     0,
                     null,

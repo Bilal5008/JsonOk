@@ -15,7 +15,9 @@ class SelectedComponent {
         clickable: Boolean?,
         longClickable: Boolean?,
         scrollable: Boolean?,
-        resourceId : String?
+        resourceId : String?,
+        xpath: String?,
+        text: String?,
     ) {
 
 
@@ -30,6 +32,8 @@ class SelectedComponent {
         this.longClickable = longClickable!!
         this.scrollable = scrollable!!
         this.resourceId = resourceId!!
+        this.xpath = xpath!!
+        this.text = text!!
 
 
     }    constructor(
@@ -44,6 +48,7 @@ class SelectedComponent {
         longClickable: Boolean?,
         scrollable: Boolean?,
 
+
     ) {
 
 
@@ -57,6 +62,7 @@ class SelectedComponent {
         this.clickable = clickable!!
         this.longClickable = longClickable!!
         this.scrollable = scrollable!!
+
 
 
 
