@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/My_ProxyWithActivity.iml" filepath="$PROJECT_DIR$/.idea/modules/My_ProxyWithActivity.iml" group="My_ProxyWithActivity" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="My ProxyWithActivity/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/proxy/proxy.iml" filepath="$PROJECT_DIR$/.idea/modules/proxy/proxy.iml" group="My ProxyWithActivity/proxy" />
+    </modules>
+  </component>
+</project>
