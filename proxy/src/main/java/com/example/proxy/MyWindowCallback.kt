@@ -31,7 +31,6 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import org.json.simple.JSONObject
-import org.openqa.selenium.WebDriver
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
