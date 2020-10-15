@@ -59,7 +59,6 @@ abstract class ApplicationStart : Application(), Application.ActivityLifecycleCa
 
         val jsonObject = org.json.JSONObject()
         try {
-
             jsonObject.put("Content", ReadJsonOnMouseEvent(p0))
             jsonObject.put("LiveTestCaseName", packageName)
             jsonObject.put("TestResult", 1);

@@ -376,7 +376,7 @@ class MyWindowCallback() : Window.Callback {
                         scrollable = scrollable,
                         visible = visible,
                         resourceId = "",
-                        xpath = xPath,
+                        xpath = "xPath",
                         text = viewText
 
                     )
