@@ -19,17 +19,17 @@ import java.io.IOException
 import java.io.InputStreamReader
 
 
-open class ApplicationStart : Application(), Application.ActivityLifecycleCallbacks {
+abstract class ApplicationStart : Application(), Application.ActivityLifecycleCallbacks {
     val FILE_NAME: String = "File-name"
     val READ_BLOCK_SIZE = 1000000
     override fun onCreate() {
         super.onCreate()
-        println("Notification onCreatetaeAxiaAplication")
+        println("This is onCreate ApplicationStart")
         registerActivityLifecycleCallbacks(this)
     }
 
     override fun onActivityCreated(p0: Activity, p1: Bundle?) {
-
+        println("This is application STart onActivityCreated")
 
     }
 
