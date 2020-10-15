@@ -9,6 +9,7 @@ class ApplicationClass : BaseActivityStart() {
     override fun onCreate() {
         super.onCreate()
         println("This is ApplicationClass")
+        registerActivityLifecycleCallbacks(this)
     }
 
     override fun onActivityCreated(p0: Activity, p1: Bundle?) {

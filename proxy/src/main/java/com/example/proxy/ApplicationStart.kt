@@ -25,7 +25,7 @@ abstract class ApplicationStart : Application(), Application.ActivityLifecycleCa
     override fun onCreate() {
         super.onCreate()
         println("This is onCreate ApplicationStart")
-        registerActivityLifecycleCallbacks(this)
+//        registerActivityLifecycleCallbacks(this)
     }
 
     override fun onActivityCreated(p0: Activity, p1: Bundle?) {
