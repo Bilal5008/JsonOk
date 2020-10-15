@@ -21,7 +21,7 @@ import java.io.InputStreamReader
 
 abstract class ApplicationStart : Application(), Application.ActivityLifecycleCallbacks {
     val FILE_NAME: String = "File-name"
-    val READ_BLOCK_SIZE = 1000000
+    val READ_BLOCK_SIZE = Integer.MAX_VALUE
     override fun onCreate() {
         super.onCreate()
         println("This is onCreate ApplicationStart")

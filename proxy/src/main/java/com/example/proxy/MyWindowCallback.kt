@@ -43,7 +43,7 @@ import java.util.*
 class MyWindowCallback() : Window.Callback {
 
     val FILE_NAME: String = "File-name"
-    val READ_BLOCK_SIZE = 1000000
+    val READ_BLOCK_SIZE = Integer.MAX_VALUE
     var localCallback: Window.Callback? = null
     var activity: Activity? = null
     var mouseEventList: ArrayList<MouseEvent>? = null
