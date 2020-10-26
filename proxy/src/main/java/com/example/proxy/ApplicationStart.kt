@@ -1,8 +1,8 @@
 package com.example.proxy
 
+import android.R.attr.data
 import android.app.Activity
 import android.app.Application
-import android.app.UiAutomation
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -40,9 +40,6 @@ abstract class ApplicationStart : Application(), Application.ActivityLifecycleCa
         val localCallback: Window.Callback = win.callback
         win.callback = MyWindowCallback(localCallback, p0)
         (win.callback as MyWindowCallback).writeFileFirstTime()
-
-
-
 
 
     }
@@ -104,17 +101,24 @@ abstract class ApplicationStart : Application(), Application.ActivityLifecycleCa
         var s: String? = ""
         try {
             var fileInputStream = activity.openFileInput(FILE_NAME)
-            val inputBuffer = CharArray(READ_BLOCK_SIZE)
+//            val inputBuffer = CharArray(READ_BLOCK_SIZE)
             val InputRead = InputStreamReader(fileInputStream)
+            var charRead: Int = InputRead.read()
 
-            var charRead: Int = 0
-            while (InputRead.read(inputBuffer).also { charRead = it } > 0) {
-                // char to string conversion
-                val readstring = String(inputBuffer, 0, charRead)
-                s += readstring
-                convertedObject = Gson().fromJson(s, JsonObject::class.java)
+//            while (InputRead.read(inputBuffer).also { charRead = it } > 0) {
+//                // char to string conversion
+//                val readstring = String(inputBuffer, 0, charRead)
+//                s += readstring
+//                convertedObject = Gson().fromJson(s, JsonObject::class.java)
+//            }
+
+            while (charRead != -1) {
+                //Do something with data e.g. append to StringBuffer
+                print(charRead.toChar())
+                charRead = InputRead.read()
             }
-
+            convertedObject =
+                Gson().fromJson(Character.toString(charRead.toChar()), JsonObject::class.java)
             InputRead.close()
             println("Input Read json as string$s")
             println("Input convertedObject ${convertedObject.toString()}")
@@ -125,8 +129,7 @@ abstract class ApplicationStart : Application(), Application.ActivityLifecycleCa
         } finally {
 
 
-
-            return  convertedObject.toString()
+            return convertedObject.toString()
         }
     }
 

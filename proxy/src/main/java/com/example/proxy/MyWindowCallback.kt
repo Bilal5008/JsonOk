@@ -24,8 +24,8 @@ import com.example.model.*
 import com.example.utils.Utilities.Companion.formatSize
 import com.example.utils.Utilities.Companion.gUID
 import com.example.utils.Utilities.Companion.getRamForDevice
-import com.example.utils.Utilities.Companion.packageName
 import com.example.utils.Utilities.Companion.getScreenResolution
+import com.example.utils.Utilities.Companion.packageName
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
@@ -34,10 +34,8 @@ import org.json.simple.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
-import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 
 class MyWindowCallback() : Window.Callback {
@@ -61,7 +59,7 @@ class MyWindowCallback() : Window.Callback {
     var viewText: String? = null
     var app: App? = null
     var d: Device? = null
-    var xPath : String?  =null
+    var xPath: String? = null
 
     companion object {
         const val FOO = "MyWindowCallback"
@@ -83,9 +81,11 @@ class MyWindowCallback() : Window.Callback {
 
             for (i in 0 until viewGroupSize!!) {
                 finalView =
-                    ((this.activity?.window?.decorView?.findViewById<View>(R.id.content) as? ViewGroup)?.getChildAt(0) as? ViewGroup)?.get(i)
+                    ((this.activity?.window?.decorView?.findViewById<View>(R.id.content) as? ViewGroup)?.getChildAt(
+                        0
+                    ) as? ViewGroup)?.get(i)
                 if (finalView is Button) {
-                    addOnTouchListener(finalView as Button, i,activity)
+                    addOnTouchListener(finalView as Button, i, activity)
                 } else if (finalView is EditText) {
                     addSetTextListener(finalView as EditText, i, activity)
                 }
@@ -434,6 +434,7 @@ class MyWindowCallback() : Window.Callback {
     private fun ReadJsonOnMouseEvent(obj: JSONObject) {
         var convertedObject: JsonObject? = null
         try {
+
             var fileInputStream = activity?.openFileInput(FILE_NAME)
             val inputBuffer = CharArray(READ_BLOCK_SIZE)
             val stream = InputStreamReader(fileInputStream)
@@ -446,21 +447,32 @@ class MyWindowCallback() : Window.Callback {
                 convertedObject = Gson().fromJson(s, JsonObject::class.java)
             }
 
+
+            while (charRead != -1) {
+                //Do something with data e.g. append to StringBuffer
+                print(charRead.toChar())
+                charRead = stream.read()
+            }
+
             stream.close()
             println("Input Read json as string$s")
             println("Input convertedObject ${convertedObject.toString()}")
+
+//            var objectToBeAdded = Gson().fromJson(Character.toString(charRead.toChar()), JsonObject::class.java)
+        var objectToBeAdded = Gson().fromJson(obj.toJSONString(), JsonObject::class.java)
+            println("Input Read new object ${obj.toJSONString()}")
+            println("Input Read new object $objectToBeAdded")
+
+
+            val obj = convertedObject?.get("scenario")?.asJsonArray
+            obj?.add(objectToBeAdded)
+            writeFile(obj)
+
         } catch (e: IOException) {
             e.printStackTrace();
         }
-        var objectToBeAdded = Gson().fromJson(obj.toJSONString(), JsonObject::class.java)
-        println("Input Read new object ${obj.toJSONString()}")
-        println("Input Read new object $objectToBeAdded")
 
 
-        val obj = convertedObject?.get("scenario")?.asJsonArray
-        obj?.add(objectToBeAdded)
-
-        writeFile(obj)
     }
 
     private fun writeFile(obj: JsonArray?) {
